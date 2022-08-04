@@ -17,9 +17,9 @@ toDoBody.addEventListener('click', function (event) {
 
 	if (event.target.tagName === 'SPAN') {
 		if (event.target.closest('.todolist__item_done')) {
-			removeNote(event.target.parentNote.id);
+			removeNote(event.target.parentNode.id);
 		} else {
-			editNote(event.target.parentNote.id);
+			editNote(event.target.parentNode.id);
 		}
 	}
 })
