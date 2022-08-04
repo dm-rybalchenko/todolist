@@ -1,37 +1,79 @@
 'use strict'
 
-let arrayNodes = [];
+const allNotes = document.querySelector('.todolist__notes');
+const toDoBody = document.querySelector('.todolist__body');
+const buttonAddNote = document.querySelector('.todolist__btn');
 
-function addNode(textNode) {
-	let newNode = new createNode(textNode);
-	arrayNodes.push(newNode);
+let arrayNotes = [];
 
+render();
+
+toDoBody.addEventListener('click', function (event) {
+	if (event.target === buttonAddNote) addNote();
+
+	if (event.target.classList.contains('todolist__item')) {
+		changeStatusNote(event.target);
+	}
+
+	if (event.target.tagName === 'SPAN') {
+		if (event.target.closest('.todolist__item_done')) {
+			removeNote(event.target.parentNote.id);
+		} else {
+			editNote(event.target.parentNote.id);
+		}
+	}
+})
+
+
+function render() {
+	allNotes.innerHTML = "";
+	arrayNotes.forEach(function (item) {
+		let statusNote = item.status ? 'todolist__item_active' : 'todolist__item_done';
+		allNotes.insertAdjacentHTML('beforeend',
+			`<div id="${item.id}" class="todolist__item ${statusNote}">${item.text}<span></span></div>`
+		);
+	});
 }
 
-function removeNode(id) {
-	arrayNodes.splice(findNodeIndex(id), 1);
+
+function addNote() {
+	let textNote = prompt('Введите текст вашей новой заметки');
+	if (textNote === null) return;
+	let newNote = new createNote(textNote);
+	arrayNotes.push(newNote);
+	render();
 }
 
+function editNote(id) {
+	let newTextNote = prompt('Отредактируйте заметку', arrayNotes[findNoteIndex(id)].text);
+	if (newTextNote === null) return;
+	arrayNotes[findNoteIndex(id)].text = newTextNote;
+	render();
+}
 
-function createNode(textNode) {
-	this.text = textNode;
+function removeNote(id) {
+	if (!confirm('Удалить заметку?')) return;
+	arrayNotes.splice(findNoteIndex(id), 1);
+	render();
+}
+
+function changeStatusNote(note) {
+	arrayNotes[findNoteIndex(note.id)].status = arrayNotes[findNoteIndex(note.id)].status ? false : true;
+	render();
+}
+
+function createNote(textNote) {
+	this.text = textNote;
 	this.id = Math.random();
 	this.status = true;
 }
 
-function findNodeIndex(id) {
-	let indexNode;
-	arrayNodes.forEach((item, index) => {
+function findNoteIndex(id) {
+	let indexNote;
+	arrayNotes.forEach((item, index) => {
 		for (let key in item) {
-			if (item[key] === +id) indexNode = index;
+			if (item[key] === +id) indexNote = index;
 		}
 	});
-	return indexNode;
+	return indexNote;
 }
-
-
-// addNode('Тестовая заметка №1');
-// addNode('Тестовая заметка №2');
-// addNode('Тестовая заметка №3');
-// removeNode(id);
-// console.log(arrayNodes);

@@ -39,8 +39,8 @@ h1,h2,h3,h4,h5,h6{font-size:inherit;font-weight: 400;}
 	color: rgb(163, 163, 163);
 	text-decoration: line-through;
 }
-.todolist__item_done::after,
-.todolist__item::after{
+.todolist__item_done span,
+.todolist__item span{
 	content: '';
 	display: block;
 	position: absolute;
@@ -52,14 +52,14 @@ h1,h2,h3,h4,h5,h6{font-size:inherit;font-weight: 400;}
 	opacity: 0;
 	transition: 0.5s;
 }
-.todolist__item_done:hover::after,
-.todolist__item:hover::after{
+.todolist__item_done:hover span,
+.todolist__item:hover span{
 	opacity: 1;
 }
-.todolist__item:hover::after{
+.todolist__item:hover span{
 	background: url(img/edit.svg) 0 0 / 100% 100% no-repeat;
 }
-.todolist__item_done:hover::after{
+.todolist__item_done:hover span{
 	background: url(img/delete.svg) 0 0 / 100% 100% no-repeat;
 }
 .todolist__btn{
