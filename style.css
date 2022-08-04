@@ -16,6 +16,7 @@ h1,h2,h3,h4,h5,h6{font-size:inherit;font-weight: 400;}
 /*-----------------------*/
 
 .wrapper {
+	margin: 0 10px;
 }
 .todolist {
 	padding: 100px 0 0 0;
@@ -39,7 +40,6 @@ h1,h2,h3,h4,h5,h6{font-size:inherit;font-weight: 400;}
 	color: rgb(163, 163, 163);
 	text-decoration: line-through;
 }
-.todolist__item_done span,
 .todolist__item span{
 	content: '';
 	display: block;
@@ -52,11 +52,10 @@ h1,h2,h3,h4,h5,h6{font-size:inherit;font-weight: 400;}
 	opacity: 0;
 	transition: 0.5s;
 }
-.todolist__item_done:hover span,
 .todolist__item:hover span{
 	opacity: 1;
 }
-.todolist__item:hover span{
+.todolist__item_active:hover span{
 	background: url(img/edit.svg) 0 0 / 100% 100% no-repeat;
 }
 .todolist__item_done:hover span{
@@ -76,4 +75,16 @@ h1,h2,h3,h4,h5,h6{font-size:inherit;font-weight: 400;}
 }
 .todolist__btn:hover{
 	background-color: #FF8000;
+}
+@media (pointer: coarse) {
+	.todolist__item_done span{
+		background: url(img/delete.svg) 0 0 / 100% 100% no-repeat;
+		opacity: 1;
+		transition: 0;
+	}
+	.todolist__item_active span{
+		background: url(img/edit.svg) 0 0 / 100% 100% no-repeat;
+		opacity: 1;
+		transition: 0;
+	}
 }
