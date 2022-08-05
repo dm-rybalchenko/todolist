@@ -4,9 +4,15 @@ const allNotes = document.querySelector('.todolist__notes');
 const toDoBody = document.querySelector('.todolist__body');
 const buttonAddNote = document.querySelector('.todolist__btn');
 
+
 let arrayNotes = [];
 
-render();
+window.onload = function () {
+	if (localStorage.getItem("arraytodo") === null) return;
+	arrayNotes = JSON.parse(localStorage.getItem("arraytodo"));
+	render();
+}
+
 
 toDoBody.addEventListener('click', function (event) {
 	if (event.target === buttonAddNote) addNote();
@@ -33,6 +39,8 @@ function render() {
 			`<div id="${item.id}" class="todolist__item ${statusNote}">${item.text}<span></span></div>`
 		);
 	});
+	if (localStorage.getItem("arraytodo") !== null) localStorage.removeItem("arraytodo");
+	localStorage.setItem("arraytodo", JSON.stringify(arrayNotes));
 }
 
 
