@@ -8,8 +8,8 @@ const buttonAddNote = document.querySelector('.todolist__btn');
 let arrayNotes = [];
 
 window.onload = function () {
-	if (localStorage.getItem("arraytodo") === null) return;
-	arrayNotes = JSON.parse(localStorage.getItem("arraytodo"));
+	if (localStorage.getItem('arraytodo') === null) return;
+	arrayNotes = JSON.parse(localStorage.getItem('arraytodo'));
 	render();
 }
 
@@ -32,22 +32,22 @@ toDoBody.addEventListener('click', function (event) {
 
 
 function render() {
-	allNotes.innerHTML = "";
+	allNotes.innerHTML = '';
 	arrayNotes.forEach(function (item) {
 		let statusNote = item.status ? 'todolist__item_active' : 'todolist__item_done';
 		allNotes.insertAdjacentHTML('beforeend',
 			`<div id="${item.id}" class="todolist__item ${statusNote}">${item.text}<span></span></div>`
 		);
 	});
-	if (localStorage.getItem("arraytodo") !== null) localStorage.removeItem("arraytodo");
-	localStorage.setItem("arraytodo", JSON.stringify(arrayNotes));
+	if (localStorage.getItem('arraytodo') !== null) localStorage.removeItem('arraytodo');
+	localStorage.setItem('arraytodo', JSON.stringify(arrayNotes));
 }
 
 
 function addNote() {
 	let textNote = prompt('Введите текст вашей новой заметки');
 	if (textNote === null) return;
-	let newNote = new createNote(textNote);
+	let newNote = new СreateNote(textNote);
 	arrayNotes.push(newNote);
 	render();
 }
@@ -70,18 +70,12 @@ function changeStatusNote(note) {
 	render();
 }
 
-function createNote(textNote) {
+function СreateNote(textNote) {
 	this.text = textNote;
 	this.id = Math.random();
 	this.status = true;
 }
 
 function findNoteIndex(id) {
-	let indexNote;
-	arrayNotes.forEach((item, index) => {
-		for (let key in item) {
-			if (item[key] === +id) indexNote = index;
-		}
-	});
-	return indexNote;
+	return arrayNotes.findIndex(item => item.id === +id);
 }
